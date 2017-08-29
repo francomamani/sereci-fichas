@@ -13,7 +13,7 @@ class CreateSolicitudAutorizacionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('solicitud_autorizacions', function (Blueprint $table) {
+        Schema::create('solicitud_autorizaciones', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateSolicitudAutorizacionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solicitud_autorizacions');
+        Schema::dropIfExists('solicitud_autorizaciones');
     }
 }
