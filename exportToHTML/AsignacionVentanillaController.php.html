@@ -1,0 +1,111 @@
+<html>
+<head>
+<title>AsignacionVentanillaController.php</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: #606366; font-weight: normal; font-style: normal; }
+.s0 { color: rgb(204,120,50); font-weight: bold; }
+.s1 { color: rgb(169,183,198); }
+.s2 { color: rgb(169,183,198); }
+.s3 { color: rgb(204,120,50); }
+.s4 { color: rgb(98,151,85); font-style: italic; }
+.s5 { color: rgb(98,151,85); font-weight: bold; font-style: italic; }
+.s6 { color: rgb(106,135,89); }
+.s7 { color: rgb(128,128,128); }
+.s8 { color: rgb(152,118,170); }
+.ls0 { height: 1px; border-width: 0; color: rgb(77,77,77); background-color:rgb(77,77,77)}
+</style>
+</head>
+<BODY BGCOLOR="#2b2b2b">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+AsignacionVentanillaController.php</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">&lt;?php</span><span class="s1"> 
+ <hr class="ls0"></span><span class="s0">namespace </span><span class="s2">App</span><span class="s1">\</span><span class="s2">Http</span><span class="s1">\</span><span class="s2">Controllers</span><span class="s3">;</span><span class="s1"> 
+ 
+</span><span class="s0">use </span><span class="s2">App</span><span class="s1">\</span><span class="s2">AsignacionVentanilla</span><span class="s3">;</span><span class="s1"> 
+</span><span class="s0">use </span><span class="s2">Illuminate</span><span class="s1">\</span><span class="s2">Http</span><span class="s1">\</span><span class="s2">Request</span><span class="s3">;</span><span class="s1"> 
+ <hr class="ls0"></span><span class="s0">class </span><span class="s2">AsignacionVentanillaController </span><span class="s0">extends </span><span class="s2">Controller</span><span class="s1"> 
+{ 
+    </span><span class="s4">/** 
+     * Display a listing of the resource. 
+     * 
+     * </span><span class="s5">@return </span><span class="s4">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">index</span><span class="s1">() 
+    { 
+        </span><span class="s0">return </span><span class="s2">response</span><span class="s1">()-&gt;</span><span class="s2">json</span><span class="s1">(</span><span class="s2">AsignacionVentanilla</span><span class="s1">::</span><span class="s2">with</span><span class="s1">([</span><span class="s6">'ventanilla'</span><span class="s3">, </span><span class="s6">'cajero'</span><span class="s1">])-&gt;</span><span class="s2">orderBy</span><span class="s1">(</span><span class="s6">'id'</span><span class="s3">, </span><span class="s6">'desc'</span><span class="s1">)-&gt;</span><span class="s2">get</span><span class="s1">())</span><span class="s3">;</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">/** 
+     * Show the form for creating a new resource. 
+     * 
+     * </span><span class="s5">@return </span><span class="s4">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">create</span><span class="s1">() 
+    { 
+        </span><span class="s7">//</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">/** 
+     * Store a newly created resource in storage. 
+     * 
+     * </span><span class="s5">@param  </span><span class="s4">\Illuminate\Http\Request  $request 
+     * </span><span class="s5">@return </span><span class="s4">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">store</span><span class="s1">(</span><span class="s2">Request </span><span class="s8">$request</span><span class="s1">) 
+    { 
+        </span><span class="s7">//</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">/** 
+     * Display the specified resource. 
+     * 
+     * </span><span class="s5">@param  </span><span class="s4">\App\AsignacionVentanilla  $asignacionVentanilla 
+     * </span><span class="s5">@return </span><span class="s4">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">show</span><span class="s1">(</span><span class="s2">AsignacionVentanilla </span><span class="s8">$asignacionVentanilla</span><span class="s1">) 
+    { 
+        </span><span class="s7">//</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">/** 
+     * Show the form for editing the specified resource. 
+     * 
+     * </span><span class="s5">@param  </span><span class="s4">\App\AsignacionVentanilla  $asignacionVentanilla 
+     * </span><span class="s5">@return </span><span class="s4">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">edit</span><span class="s1">(</span><span class="s2">AsignacionVentanilla </span><span class="s8">$asignacionVentanilla</span><span class="s1">) 
+    { 
+        </span><span class="s7">//</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">/** 
+     * Update the specified resource in storage. 
+     * 
+     * </span><span class="s5">@param  </span><span class="s4">\Illuminate\Http\Request  $request 
+     * </span><span class="s5">@param  </span><span class="s4">\App\AsignacionVentanilla  $asignacionVentanilla 
+     * </span><span class="s5">@return </span><span class="s4">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">update</span><span class="s1">(</span><span class="s2">Request </span><span class="s8">$request</span><span class="s3">, </span><span class="s2">AsignacionVentanilla </span><span class="s8">$asignacionVentanilla</span><span class="s1">) 
+    { 
+        </span><span class="s7">//</span><span class="s1"> 
+    } 
+ 
+    </span><span class="s4">/** 
+     * Remove the specified resource from storage. 
+     * 
+     * </span><span class="s5">@param  </span><span class="s4">\App\AsignacionVentanilla  $asignacionVentanilla 
+     * </span><span class="s5">@return </span><span class="s4">\Illuminate\Http\Response 
+     */</span><span class="s1"> 
+    </span><span class="s0">public function </span><span class="s2">destroy</span><span class="s1">(</span><span class="s2">AsignacionVentanilla </span><span class="s8">$asignacionVentanilla</span><span class="s1">) 
+    { 
+        </span><span class="s7">//</span><span class="s1"> 
+    } 
+} 
+</span></pre>
+</body>
+</html>
