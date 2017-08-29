@@ -11,12 +11,14 @@ class Tramite extends Model
         'ficha_id',
         'ventanilla_id',
         'cajero_id',
-        'tipo_tramite_id',
-        'descripcion'
+        'categoria_tramite_id',
     ];
     protected $dates = ['deleted_at'];
     public function tipoTramite(){
         return $this->belongsTo('App\TipoTramite');
+    }
+    public function solicitante(){
+        return $this->belongsTo('App\Solicitante');
     }
     public function ficha(){
         return $this->belongsTo('App\Tramite');

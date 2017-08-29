@@ -20,10 +20,15 @@ class CreateTramitesTable extends Migration
                   ->references('id')
                   ->on('fichas')
                   ->onDelete('cascade');
-            $table->integer('tipo_tramite_id')->unsigned();
-            $table->foreign('tipo_tramite_id')
+            $table->integer('ventanilla_id')->unsigned();
+            $table->foreign('ventanilla_id')
+                ->references('id')
+                ->on('ventanillas')
+                ->onDelete('cascade');
+            $table->integer('categoria_tramite_id')->unsigned();
+            $table->foreign('categoria_tramite_id')
                   ->references('id')
-                  ->on('tipo_tramites')
+                  ->on('categoria_tramites')
                   ->onDelete('cascade');
             $table->integer('cajero_id')->unsigned();
             $table->foreign('cajero_id')

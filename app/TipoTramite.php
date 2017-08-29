@@ -12,7 +12,7 @@ class TipoTramite extends Model
         'descripcion'
     ];
     protected $dates = ['deleted_at'];
-    public function tramites(){
-        return $this->hasMany('App\Tramite');
+    public function categoriaTramites(){
+        return $this->hasMany('App\CategoriaTramite');
     }
 }
