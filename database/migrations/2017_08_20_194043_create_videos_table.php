@@ -19,7 +19,7 @@ class CreateVideosTable extends Migration
             $table->boolean('habilitado')->default(true);
             $table->string('url');
             $table->integer('user_id')->unsigned();
-            $table->string('rol', 255);
+            $table->string('rol');
             $table->softDeletes();
             $table->timestamps();
         });
