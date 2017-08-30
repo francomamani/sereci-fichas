@@ -9,7 +9,9 @@ class CategoriaTramiteController extends Controller
 {
     public function index()
     {
-        return response()->json(CategoriaTramite::with('tipoTramite')->orderByDesc('id')->get());
+        return response()->json(CategoriaTramite::with('tipoTramite')
+                                                ->orderByDesc('id')
+                                                ->get(), 200);
     }
 
     public function store(Request $request)
@@ -19,7 +21,7 @@ class CategoriaTramiteController extends Controller
 
     public function show($id)
     {
-        return response()->json(CategoriaTramite::find($id));
+        return response()->json(CategoriaTramite::find($id), 200);
     }
 
     public function update(Request $request, $id)

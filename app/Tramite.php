@@ -13,7 +13,7 @@ class Tramite extends Model
         'cajero_id',
         'categoria_tramite_id',
         'solicitud_autorizacion_id',
-        'observaciones',
+        'glosa',
     ];
     protected $dates = ['deleted_at'];
     public function tipoTramite(){

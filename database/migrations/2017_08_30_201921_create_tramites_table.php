@@ -40,7 +40,7 @@ class CreateTramitesTable extends Migration
                 ->references('id')
                 ->on('solicitud_autorizaciones')
                 ->onDelete('cascade');
-            $table->string('observaciones');
+            $table->string('glosa');
             $table->softDeletes();
             $table->timestamps();
         });
