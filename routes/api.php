@@ -35,6 +35,7 @@ Route::group(['middleware'=>['jwt-auth']], function (){
     Route::resource('asignacion-categorias', 'AsignacionCategoriaController', ['except' => ['create', 'edit']]);
     Route::resource('videos', 'VideoController', ['except' => ['create', 'edit']]);
     Route::resource('tramites', 'TramiteController', ['except' => ['create', 'edit']]);
+    Route::resource('categoria-tramites', 'CategoriaTramiteController', ['except' => ['create', 'edit']]);
     Route::resource('ventanillas', 'VentanillaController', ['except' => ['create', 'edit']]);
     Route::resource('asignacion-ventanillas', 'AsignacionVentanillaController', ['except' => ['create', 'edit']]);
     Route::get('cajeros-id', 'CajeroController@cajerosId', ['except' => ['create', 'edit']]);
