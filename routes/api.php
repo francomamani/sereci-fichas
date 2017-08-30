@@ -38,6 +38,10 @@ Route::group(['middleware'=>['jwt-auth']], function (){
     Route::resource('categoria-tramites', 'CategoriaTramiteController', ['except' => ['create', 'edit']]);
     Route::resource('ventanillas', 'VentanillaController', ['except' => ['create', 'edit']]);
     Route::resource('asignacion-ventanillas', 'AsignacionVentanillaController', ['except' => ['create', 'edit']]);
+
+    Route::resource('partidas', 'PartidaController', ['except' => ['create', 'edit']]);
+    Route::resource('solicitantes', 'SolicitanteController', ['except' => ['create', 'edit']]);
+
     Route::get('cajeros-id', 'CajeroController@cajerosId', ['except' => ['create', 'edit']]);
     Route::get('administradores-user', 'AdministradorController@administradoresUser');
     Route::get('comunicadores-user', 'ComunicadorController@comunicadoresUser');

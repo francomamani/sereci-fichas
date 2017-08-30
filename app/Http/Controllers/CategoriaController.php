@@ -16,7 +16,6 @@ class CategoriaController extends Controller
     public function update($id){
         $categoria = Categoria::find($id);
         $categoria->update(request()->all());
-        $categoria->save();
         return response()->json($categoria, 200);
     }
     public function destroy($id){

@@ -7,79 +7,21 @@ use Illuminate\Http\Request;
 
 class SolicitanteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function index(){
+        return response()->json(Solicitante::orderByDesc('id')->get(), 200);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function store(){
+        $solicitante = Solicitante::create(request()->all());
+        return response()->json($solicitante, 201);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function update($id){
+        $solicitante = Solicitante::find($id);
+        $solicitante->update(request()->all());
+        return response()->json($solicitante, 200);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Solicitante  $solicitante
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Solicitante $solicitante)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Solicitante  $solicitante
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Solicitante $solicitante)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Solicitante  $solicitante
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Solicitante $solicitante)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Solicitante  $solicitante
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Solicitante $solicitante)
-    {
-        //
+    public function destroy($id){
+        $solicitante = Solicitante::find($id);
+        $solicitante->delete();
+        return response()->json(['exito'=>'Solicitante eliminado exitosamente'], 200);
     }
 }
