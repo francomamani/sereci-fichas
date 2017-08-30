@@ -12,7 +12,9 @@ class Video extends Model
     protected $fillable = [
         'descripcion',
         'habilitado',
-        'url'
+        'url',
+        'user_id',
+        'rol'
     ];
     protected $dates = ['deleted_at'];
 

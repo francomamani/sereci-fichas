@@ -18,6 +18,8 @@ class CreateVideosTable extends Migration
             $table->string('descripcion');
             $table->boolean('habilitado')->default(true);
             $table->string('url');
+            $table->integer('user_id')->unsigned();
+            $table->string('rol');
             $table->softDeletes();
             $table->timestamps();
         });
