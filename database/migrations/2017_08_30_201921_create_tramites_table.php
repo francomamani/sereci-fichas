@@ -35,7 +35,12 @@ class CreateTramitesTable extends Migration
                   ->references('id')
                   ->on('cajeros')
                   ->onDelete('cascade');
-            $table->string('descripcion');
+            $table->integer('solicitud_autorizacion_id')->unsigned();
+            $table->foreign('solicitud_autorizacion_id')
+                ->references('id')
+                ->on('solicitud_autorizaciones')
+                ->onDelete('cascade');
+            $table->string('observaciones');
             $table->softDeletes();
             $table->timestamps();
         });

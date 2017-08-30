@@ -12,6 +12,8 @@ class Tramite extends Model
         'ventanilla_id',
         'cajero_id',
         'categoria_tramite_id',
+        'solicitud_autorizacion_id',
+        'observaciones',
     ];
     protected $dates = ['deleted_at'];
     public function tipoTramite(){
@@ -28,5 +30,11 @@ class Tramite extends Model
     }
     public function ventanilla(){
         return $this->belongsTo('App\Ventanilla');
+    }
+    public function solicitudAutorizacion(){
+        return $this->belongsTo('App\SolicitudAutorizacion');
+    }
+    public function partidas(){
+        return $this->hasMany('App\Partida');
     }
 }
