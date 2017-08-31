@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Solicitante;
-use Illuminate\Http\Request;
 
 class SolicitanteController extends Controller
 {

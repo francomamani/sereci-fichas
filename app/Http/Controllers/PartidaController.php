@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Partida;
-use Illuminate\Http\Request;
 
 class PartidaController extends Controller
 {

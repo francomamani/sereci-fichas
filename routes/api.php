@@ -18,7 +18,7 @@ Route::group(['middleware'=>['jwt-auth']], function (){
     Route::get('usuario', 'UserController@usuario');
     Route::resource('usuarios', 'UserController', ['except'=>['create','edit']]);
     Route::put('usuarios-activar/{id}', 'UserController@activar');
-    Route::put('usuarios-desactivar/{id}', 'UserController@desactivar');
+    Route::put('usuarios-desactivar/{id}', 'UserController@desnactivar');
     Route::resource('noticias', 'NoticiaController', ['except'=>['create','edit']]);
     Route::get('noticias-habilitadas', 'NoticiaController@noticiasHabilitadas');
     Route::get('noticias-deshabilitadas', 'NoticiaController@noticiasDeshabilitadas');
@@ -35,9 +35,15 @@ Route::group(['middleware'=>['jwt-auth']], function (){
     Route::resource('categoria-tramites', 'CategoriaTramiteController', ['except' => ['create', 'edit']]);
     Route::resource('ventanillas', 'VentanillaController', ['except' => ['create', 'edit']]);
     Route::resource('asignacion-ventanillas', 'AsignacionVentanillaController', ['except' => ['create', 'edit']]);
+    Route::resource('normativas', 'NormativaController', ['except'=>['create', 'edit']]);
+    Route::resource('articulos', 'ArticuloController', ['except'=>['create', 'edit']]);
+
 
     Route::resource('partidas', 'PartidaController', ['except' => ['create', 'edit']]);
     Route::resource('solicitantes', 'SolicitanteController', ['except' => ['create', 'edit']]);
+    Route::resource('items', 'ItemController', ['except' => ['create', 'edit']]);
+    Route::resource('detalles', 'DetalleController', ['except' => ['create', 'edit']]);
+    Route::resource('recepcion_tramites', 'RecepcionTramiteController', ['except' => ['create', 'edit']]);
 
     Route::get('cajeros-id', 'CajeroController@cajerosId', ['except' => ['create', 'edit']]);
     Route::get('administradores-user', 'AdministradorController@administradoresUser');

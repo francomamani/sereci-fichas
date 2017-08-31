@@ -16,14 +16,7 @@ class SolicitudAutorizacion extends Model
         'cambio',
         'cancelacion',
         'reposicion',
-        'traspaso',
-        'num_partida',
-        'inscrito_esposo_fallecido',
-        'lugar_nacimiento',
-        'fecha_nacimiento',
-        'padre',
-        'complemento_apellido_convencional',
-        'otros_datos_correccion'
+        'traspaso'
     ];
     protected $dates = ['deleted_at'];
 

@@ -15,11 +15,10 @@ class Ventanilla extends Model
     public function asignacionCategorias(){
         return $this->hasMany('App\AsignacionCategoria');
     }
-    public function tramites(){
-        return $this->hasMany('App\Tramite');
-    }
     public function asignacionVentanillas(){
         return $this->hasMany('App\AsignacionVentanilla');
     }
-
+    public function recepcionTramites(){
+        return $this->hasMany('App\RecepcionTramite');
+    }
 }

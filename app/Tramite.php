@@ -28,13 +28,16 @@ class Tramite extends Model
     public function cajero(){
         return $this->belongsTo('App\Cajero');
     }
-    public function ventanilla(){
-        return $this->belongsTo('App\Ventanilla');
-    }
     public function solicitudAutorizacion(){
         return $this->belongsTo('App\SolicitudAutorizacion');
     }
     public function partidas(){
         return $this->hasMany('App\Partida');
+    }
+    public function items(){
+        return $this->hasMany('App\Item');
+    }
+    public function recepcionTramites(){
+        return $this->hasMany('App\RecepcionTramite');
     }
 }
