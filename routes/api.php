@@ -18,7 +18,7 @@ Route::group(['middleware'=>['jwt-auth']], function (){
     Route::get('usuario', 'UserController@usuario');
     Route::resource('usuarios', 'UserController', ['except'=>['create','edit']]);
     Route::put('usuarios-activar/{id}', 'UserController@activar');
-    Route::put('usuarios-desactivar/{id}', 'UserController@desnactivar');
+    Route::put('usuarios-desactivar/{id}', 'UserController@desactivar');
     Route::resource('noticias', 'NoticiaController', ['except'=>['create','edit']]);
     Route::get('noticias-habilitadas', 'NoticiaController@noticiasHabilitadas');
     Route::get('noticias-deshabilitadas', 'NoticiaController@noticiasDeshabilitadas');

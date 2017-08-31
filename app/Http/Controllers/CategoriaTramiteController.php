@@ -21,6 +21,6 @@ class CategoriaTramiteController extends Controller
     public function destroy($id){
         $categoria_tramite = CategoriaTramite::find($id);
         $categoria_tramite->delete();
-        return response()->json(['exito'=>'Categoria de Tramite eliminado exitosamente'], 200);
+        return response()->json(['exito'=>'Categoria de Tramite eliminado exitosamente' . $categoria_tramite->id], 200);
     }
 }

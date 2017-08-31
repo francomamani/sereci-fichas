@@ -21,6 +21,6 @@ class SolicitanteController extends Controller
     public function destroy($id){
         $solicitante = Solicitante::find($id);
         $solicitante->delete();
-        return response()->json(['exito'=>'Solicitante eliminado exitosamente'], 200);
+        return response()->json(['exito'=>'Solicitante eliminado exitosamente con id: ' . $solicitante->id], 200);
     }
 }

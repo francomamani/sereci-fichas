@@ -21,6 +21,6 @@ class PartidaController extends Controller
     public function destroy($id){
         $partida = Partida::find($id);
         $partida->delete();
-        return response()->json(['exito'=>'Partida eliminada exitosamente'], 200);
+        return response()->json(['exito'=>'Partida eliminada exitosamente con id: ' . $partida->ida], 200);
     }
 }
