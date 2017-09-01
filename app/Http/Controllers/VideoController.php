@@ -55,4 +55,7 @@ class VideoController extends Controller
         $video = Video::find($id);
         return response()->download(storage_path('app/' . $video->url));
     }
+    public function videoIds(){
+        return response()->json(Video::select('id')->orderByDesc('id')->get());
+    }
 }

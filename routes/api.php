@@ -53,4 +53,7 @@ Route::group(['middleware'=>['jwt-auth']], function (){
     Route::get('comunicadores-user', 'ComunicadorController@comunicadoresUser');
     Route::get('cajeros-user', 'CajeroController@cajerosUser');
     Route::get('refresh-token', 'UserController@refreshToken');
+
+    Route::get('video-ids', 'VideoController@videoIds');
+
 });
