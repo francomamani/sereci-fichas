@@ -9,7 +9,7 @@ class ArticuloController extends Controller
 {
     public function index()
     {
-        return response()->json(Articulo::orderByDesc('id')->get(), 200);
+        return response()->json(Articulo::with('normativa')->orderByDesc('articulos.id')->get(), 200);
     }
 
     public function store(Request $request)

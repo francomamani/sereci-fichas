@@ -10,16 +10,18 @@ class Articulo extends Model
     use SoftDeletes;
     protected $table = 'articulos';
     protected $fillable = [
+        'normativa_id',
         'numero',
         'descripcion',
         'inciso'
     ];
     protected $dates = ['deleted_at'];
 
-    protected function normativa(){
+    public function normativa(){
         return $this->belongsTo('App\Normativa');
     }
-    protected function detalles(){
+    public  function detalles(){
         return $this->hasMany('App\Detalle');
     }
+
 }
