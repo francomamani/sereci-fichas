@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Video;
+use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
@@ -39,5 +40,19 @@ class VideoController extends Controller
         $video = Video::find($id);
         $video->delete();
         return response()->json(['exito'=>'Video eliminado exitosamente con id: ' . $video->id], 200);
+    }
+    public function getInfoVideo($id){
+        $video = Video::find($id);
+        $file = Storage::url('app/'.$video->url);
+        $size = Storage::size($video->url);
+        return response()->json(compact('file','size'));
+    }
+    public function file($id){
+        $video = Video::find($id);
+        return response()->file(storage_path('app/' . $video->url));
+    }
+    public function download($id){
+        $video = Video::find($id);
+        return response()->download(storage_path('app/' . $video->url));
     }
 }

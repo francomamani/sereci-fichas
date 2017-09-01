@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 */
 
 Route::post('autenticar', 'UserController@autenticar');
+Route::get('get-info-video/{id}', 'VideoController@getInfoVideo');
+Route::get('file/{id}', 'VideoController@file');
+Route::get('download/{id}', 'VideoController@download');
 Route::group(['middleware'=>['jwt-auth']], function (){
     Route::get('usuario', 'UserController@usuario');
     Route::resource('usuarios', 'UserController', ['except'=>['create','edit']]);
