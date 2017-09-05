@@ -3,18 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Video;
+use App\Administrador;
+use App\Comunicador;
+use App\Cajero;
 use Illuminate\Support\Facades\Storage;
+use JWTAuth;
+
 
 class VideoController extends Controller
 {
     public function index(){
         return response()->json(Video::orderBy('id', 'desc')->get(), 200);
     }
+    private function getRol($user_id){
+        $response = '';
+        $administradorCount = Administrador::where('user_id', $user_id)->count();
+        $comunicadorCount = Comunicador::where('user_id', $user_id)->count();
+        $cajeroCount = Cajero::where('user_id', $user_id)->count();
+        if($administradorCount > 0){
+            $response = 'Administrador';
+        }else{
+            if($comunicadorCount > 0){
+                $response = 'Comunicador';
+            }else{
+                if ($cajeroCount > 0){
+                    $response = 'Cajero';
+                }
+            }
+        }
+        return $response;
+    }
     public function store(){
-        $descripcion = "something!";
+        $descripcion = request()->input('descripcion');
         $habilitado = true;
-        $user_id = 1;
-        $rol = 'administrador';
+        $user_id = JWTAuth::toUser()->id;
+        $rol = $this->getRol($user_id);
         if (request()->hasFile('video')){
             $path = request()->file('video')->store('videos');
             $video = new Video();

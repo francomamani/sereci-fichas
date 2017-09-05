@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\AsignacionVentanilla;
+use App\Cajero;
 use App\Categoria;
 use App\Ficha;
-
+use App\Ventanilla;
+use Carbon\Carbon;
+use JWTAuth;
 class FichaController extends Controller
 {
     public function index(){
@@ -40,5 +44,190 @@ class FichaController extends Controller
         $ficha = Ficha::find($id);
         $ficha->delete();
         return response()->json(['exito'=>'Asignacion de categoria eliminada con id: ' . $ficha->id], 200);
+    }
+    public function countByPrioridadSelectivo($fichas){
+        $response = [];
+        foreach ($fichas as $ficha){
+            if ($ficha['estado_ficha'] == 'selectivo'){
+                $record = [
+                    'prioridad' =>   $ficha['categoria']['prioridad'],
+                    'descripcion' =>   $ficha['categoria']['descripcion'],
+                    'acronimo' =>   $ficha['categoria']['acronimo'],
+                    'categoria_id' =>   $ficha['categoria']['id'],
+                    'id' =>   $ficha['id'],
+                    'numero' =>   $ficha['numero'],
+                    'estado_ficha' =>   $ficha['estado_ficha'],
+                    'created_at' =>   $ficha['created_at'],
+                ];
+                array_push($response, $record);
+            }
+        }
+        return count($response);
+    }
+
+    public function getByPrioridadSelectivo($fichas){
+        $response = [];
+
+        foreach ($fichas as $ficha){
+            if ($ficha['estado_ficha'] == 'selectivo'){
+                $record = [
+                    'prioridad' =>   $ficha['categoria']['prioridad'],
+                    'descripcion' =>   $ficha['categoria']['descripcion'],
+                    'acronimo' =>   $ficha['categoria']['acronimo'],
+                    'categoria_id' =>   $ficha['categoria']['id'],
+                    'id' =>   $ficha['id'],
+                    'numero' =>   $ficha['numero'],
+                    'estado_ficha' =>   $ficha['estado_ficha'],
+                    'created_at' =>   $ficha['created_at'],
+                ];
+                array_push($response, $record);
+            }
+        }
+        sort($response);
+        return $response;
+    }
+    public function getByExpiracion($fichas){
+        $response = [];
+        foreach ($fichas as $ficha){
+            if ($ficha['estado_ficha'] == 'expiracion'){
+                $record = [
+                    'id' =>   $ficha['id'],
+                    'prioridad' =>   $ficha['categoria']['prioridad'],
+                    'descripcion' =>   $ficha['categoria']['descripcion'],
+                    'acronimo' =>   $ficha['categoria']['acronimo'],
+                    'categoria_id' =>   $ficha['categoria']['id'],
+                    'numero' =>   $ficha['numero'],
+                    'estado_ficha' =>   $ficha['estado_ficha'],
+                    'created_at' =>   $ficha['created_at'],
+                ];
+                array_push($response, $record);
+            }
+        }
+        sort($response);
+        return $response;
+    }
+    public function countByExpiracion($fichas){
+        $response = [];
+        foreach ($fichas as $ficha){
+            if ($ficha['estado_ficha'] == 'expiracion'){
+                $record = [
+                    'id' =>   $ficha['id'],
+                    'prioridad' =>   $ficha['categoria']['prioridad'],
+                    'descripcion' =>   $ficha['categoria']['descripcion'],
+                    'acronimo' =>   $ficha['categoria']['acronimo'],
+                    'categoria_id' =>   $ficha['categoria']['id'],
+                    'numero' =>   $ficha['numero'],
+                    'estado_ficha' =>   $ficha['estado_ficha'],
+                    'created_at' =>   $ficha['created_at'],
+                ];
+                array_push($response, $record);
+            }
+        }
+        return count($response);
+    }
+    public function getOrderedFichas($fichas){
+        $response = [];
+        foreach ($fichas as $ficha){
+            $record = [
+                'id' =>   $ficha['id'],
+                'prioridad' =>   $ficha['categoria']['prioridad'],
+                'descripcion' =>   $ficha['categoria']['descripcion'],
+                'acronimo' =>   $ficha['categoria']['acronimo'],
+                'categoria_id' =>   $ficha['categoria']['id'],
+                'numero' =>   $ficha['numero'],
+                'estado_ficha' =>   $ficha['estado_ficha'],
+                'created_at' =>   $ficha['created_at'],
+            ];
+            array_push($response, $record);
+        }
+        sort($response);
+        return $response;
+    }
+    public function updateEstadoFicha($asignacion_categoria){
+        //update to selectivo
+        $date_selectivo = Carbon::now()->subMinutes(12);
+        $date_expiracion = Carbon::now()->subMinutes(25);
+        $fichas = $asignacion_categoria->categoria()->first()
+                                        ->fichas()
+                                        ->whereDate('created_at', date('Y-m-d'))
+                                        ->where('estado_ficha', 'espera')
+                                        ->where('created_at', '<=', $date_selectivo)
+                                        ->get();
+        foreach ($fichas as $ficha){
+            $ficha->estado_ficha = 'selectivo';
+            $ficha->save();
+        }
+        //update to expiracion
+        $fichas2 = $asignacion_categoria->categoria()->first()
+            ->fichas()
+            ->whereDate('created_at', date('Y-m-d'))
+            ->where('estado_ficha','selectivo')
+            ->where('created_at', '<=', $date_expiracion)
+            ->get();
+        foreach ($fichas2 as $ficha){
+            $ficha->estado_ficha = 'expiracion';
+            $ficha->save();
+        }
+    }
+
+    public function llamarFicha(){
+        $response = [];
+        $cajero = JWTAuth::toUser()->cajero()->first();
+
+        $total_asignacion_ventanillas = Cajero::find($cajero->id)->asignacionVentanillas()->where('activo', true)->count();
+        if ($total_asignacion_ventanillas > 0){
+            $asignacion_ventanilla = Cajero::find($cajero->id)->asignacionVentanillas()->where('activo', true)->first();
+            $ventanilla = $asignacion_ventanilla->ventanilla()->first();
+            $total_asignacion_categorias = $ventanilla->asignacionCategorias()->count();
+            if ($total_asignacion_categorias > 0){
+                $asignacion_categorias = $ventanilla->asignacionCategorias()->get();
+                foreach ($asignacion_categorias as $asignacion_categoria){
+                    $total_fichas = $asignacion_categoria->categoria()->first()->fichas()->count();
+                    if ($total_fichas > 0){
+                        $this->updateEstadoFicha($asignacion_categoria);
+                        $records = $asignacion_categoria->categoria()->first()
+                                                       ->fichas()
+                                                       ->with('categoria')
+                                                       ->whereDate('created_at', date('Y-m-d'))
+                                                       ->where('estado_ficha', '!=', 'atendido')
+                                                       ->get()
+                                                       ->toArray();
+                        $response = array_merge($response, $records);
+                    }
+                }
+                if ($this->countByExpiracion($response) > 0){
+                    $ficha_id = $this->getByExpiracion($response)[0]['id'];
+                    $ficha = Ficha::find($ficha_id);
+                    $ficha->estado_ficha = 'ventanilla';
+                    $ficha->save();
+                    $response = $this->getByExpiracion($response)[0];
+                }else{
+                    if ($this->countByPrioridadSelectivo($response) > 0 ){
+                        $ficha_id = $this->getByPrioridadSelectivo($response)[0]['id'];
+                        $ficha = Ficha::find($ficha_id);
+                        $ficha->estado_ficha = 'ventanilla';
+                        $ficha->save();
+                        $response = $this->getByPrioridadSelectivo($response)[0];
+                    }else{
+                        if(count($response) > 0){
+                            $ficha_id = $this->getOrderedFichas($response)[0]['id'];
+                            $ficha = Ficha::find($ficha_id);
+                            $ficha->estado_ficha = 'ventanilla';
+                            $ficha->save();
+                            $response = $this->getOrderedFichas($response)[0];
+                        }else{
+                            $response = ['error' => 'No existen fichas en espera ^_^'];
+                        }
+
+                    }
+                }
+
+            }else{
+                $response = ['error' => 'La ventanilla no tiene categorias asignadas'];
+            }
+        }else{
+            $response = ['error' => 'El cajero no tiene ventanillas asignadas activas'];
+        }
+        return response()->json($response);
     }
 }
