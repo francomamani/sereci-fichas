@@ -59,6 +59,7 @@ Route::group(['middleware'=>['jwt-auth']], function (){
 
     Route::get('llamar-ficha', 'FichaController@llamarFicha');
     Route::post('solicitante-buscar', 'SolicitanteController@buscar');
+    Route::post('inscrito-buscar', 'InscritoController@buscar');
 
     Route::get('get-categoria-tramites/{tipo_tramite_id}', 'TipoTramiteController@getCategoriaTramites');
 });

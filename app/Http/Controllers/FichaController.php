@@ -218,7 +218,6 @@ class FichaController extends Controller
                         }else{
                             $response = ['error' => 'No existen fichas en espera ^_^'];
                         }
-
                     }
                 }
 

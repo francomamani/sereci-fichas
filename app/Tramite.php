@@ -9,11 +9,15 @@ class Tramite extends Model
     protected $table = "tramites";
     protected $fillable = [
         'ficha_id',
-        'ventanilla_id',
         'cajero_id',
         'categoria_tramite_id',
         'solicitud_autorizacion_id',
         'glosa',
+        'fecha_elaboracion',
+        'fecha_aceptacion',
+        'con_prueba',
+        'entregado',
+        'parentesco',
     ];
     protected $dates = ['deleted_at'];
     public function tipoTramite(){

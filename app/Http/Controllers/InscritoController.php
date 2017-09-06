@@ -21,9 +21,28 @@ class InscritoController extends Controller
         $inscrito->update(request()->all());
         return response()->json($inscrito, 200);
     }
-    public function destroy($id){
+    public function destroy($id)
+    {
         $inscrito = Inscrito::find($id);
         $inscrito->delete();
-        return response()->json(['exito'=>'Inscrito eliminado exitosamente con id: ' . $inscrito->id], 200);
+        return response()->json(['exito' => 'Inscrito eliminado exitosamente con id: ' . $inscrito->id], 200);
+    }
+
+    public function buscar() {
+        $response = null;
+        $busqueda_inscrito = request()->input('busqueda_inscrito');
+        $inscritos = Inscrito::where('nombres', 'like', '%'. $busqueda_inscrito .'%')
+                             ->orWhere('apellidos', 'like', '%'. $busqueda_inscrito.'%')
+                             ->orderBy('nombres')
+                             ->get()->toArray();
+        if(!empty($inscritos)){
+            $response = $inscritos;
+        }else {
+            $response = [
+                'error' => 'El inscrito ' . $busqueda_inscrito . ' no esta registrado T_T',
+                'code' => 404
+            ];
+        }
+        return response()->json($response);
     }
 }

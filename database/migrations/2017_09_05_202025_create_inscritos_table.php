@@ -17,7 +17,7 @@ class CreateInscritosTable extends Migration
             $table->increments('id');
             $table->string('nombres');
             $table->string('apellidos');
-            $table->softDeletes();ins
+            $table->softDeletes();
             $table->timestamps();
         });
     }
