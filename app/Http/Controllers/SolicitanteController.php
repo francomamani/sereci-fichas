@@ -23,4 +23,24 @@ class SolicitanteController extends Controller
         $solicitante->delete();
         return response()->json(['exito'=>'Solicitante eliminado exitosamente con id: ' . $solicitante->id], 200);
     }
+    public function buscar(){
+        $response = null;
+        $busqueda_solicitante = request()->input('busqueda_solicitante');
+        $solicitantes = Solicitante::where('nombres', 'like', '%' . $busqueda_solicitante . '%')
+                                   ->orWhere('apellidos', 'like', '%'.$busqueda_solicitante.'%')
+                                   ->orWhere('celular', 'like', '%'.$busqueda_solicitante.'%')
+                                   ->orWhere('carnet', 'like', '%'.$busqueda_solicitante.'%')
+                                   ->orderBy('nombres')
+                                   ->get()->toArray();
+        if(!empty($solicitantes)){
+            $response = $solicitantes;
+        }else{
+            $response = [
+                            'error' => 'El solicitante ' . $busqueda_solicitante . ' no esta registrado T_T',
+                            'code' => 404
+                        ];
+        }
+
+        return response()->json($response, 200);
+    }
 }

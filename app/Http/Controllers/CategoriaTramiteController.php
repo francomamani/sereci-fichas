@@ -7,7 +7,10 @@ use App\CategoriaTramite;
 class CategoriaTramiteController extends Controller
 {
     public function index(){
-        return response()->json(CategoriaTramite::get(), 200);
+        return response()->json(CategoriaTramite::with('tipoTramite')->orderBy('descripcion')->get(), 200);
+    }
+    public function show($id){
+        return response()->json(CategoriaTramite::with('tipoTramite')->find($id), 200);
     }
     public function store(){
         $categoria_tramite = CategoriaTramite::create(request()->all());

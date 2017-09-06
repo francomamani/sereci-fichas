@@ -40,4 +40,8 @@ class Tramite extends Model
     public function recepcionTramites(){
         return $this->hasMany('App\RecepcionTramite');
     }
+    public function inscrito(){
+        return $this->belongsTo('App\Inscrito');
+    }
+
 }

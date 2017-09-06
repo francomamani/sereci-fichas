@@ -44,6 +44,7 @@ Route::group(['middleware'=>['jwt-auth']], function (){
     Route::resource('items', 'ItemController', ['except' => ['create', 'edit']]);
     Route::resource('detalles', 'DetalleController', ['except' => ['create', 'edit']]);
     Route::resource('recepcion_tramites', 'RecepcionTramiteController', ['except' => ['create', 'edit']]);
+    Route::resource('inscritos', 'InscritoController', ['except' => ['create', 'edit']]);
 
     Route::get('cajeros-id', 'CajeroController@cajerosId', ['except' => ['create', 'edit']]);
     Route::get('administradores-user', 'AdministradorController@administradoresUser');
@@ -57,6 +58,9 @@ Route::group(['middleware'=>['jwt-auth']], function (){
     Route::get('download/{id}', 'VideoController@download');
 
     Route::get('llamar-ficha', 'FichaController@llamarFicha');
+    Route::post('solicitante-buscar', 'SolicitanteController@buscar');
+
+    Route::get('get-categoria-tramites/{tipo_tramite_id}', 'TipoTramiteController@getCategoriaTramites');
 });
 Route::get('file/{id}', 'VideoController@file');
 Route::post('guardar', 'ExampleController@store');

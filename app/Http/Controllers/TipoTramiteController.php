@@ -7,7 +7,7 @@ use App\TipoTramite;
 class TipoTramiteController extends Controller
 {
     public function index(){
-        return response()->json(TipoTramite::orderBy('id', 'desc')->get(), 200);
+        return response()->json(TipoTramite::orderBy('nombre')->get(), 200);
     }
     public function show($id){
         return response()->json(TipoTramite::find($id), 200);
@@ -25,5 +25,9 @@ class TipoTramiteController extends Controller
         $tipoTramite = TipoTramite::find($id);
         $tipoTramite->delete();
         return response()->json(['exito'=>'Tipo de tramite eliminado con id: ' . $tipoTramite->id], 200);
+    }
+    public function getCategoriaTramites($tipo_tramite_id){
+        $categoria_tramites = TipoTramite::find($tipo_tramite_id)->categoriaTramites()->orderBy('descripcion')->get();
+        return response()->json($categoria_tramites, 200);
     }
 }
