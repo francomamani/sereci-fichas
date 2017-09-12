@@ -170,14 +170,10 @@ class FichaController extends Controller
         }
     }
 
-    public function llamarFicha(){
+    public function llamarFicha($ventanilla_id){
         $response = [];
-        $cajero = JWTAuth::toUser()->cajero()->first();
 
-        $total_asignacion_ventanillas = Cajero::find($cajero->id)->asignacionVentanillas()->where('activo', true)->count();
-        if ($total_asignacion_ventanillas > 0){
-            $asignacion_ventanilla = Cajero::find($cajero->id)->asignacionVentanillas()->where('activo', true)->first();
-            $ventanilla = $asignacion_ventanilla->ventanilla()->first();
+            $ventanilla = Ventanilla::find($ventanilla_id);
             $total_asignacion_categorias = $ventanilla->asignacionCategorias()->count();
             if ($total_asignacion_categorias > 0){
                 $asignacion_categorias = $ventanilla->asignacionCategorias()->get();
@@ -224,9 +220,7 @@ class FichaController extends Controller
             }else{
                 $response = ['error' => 'La ventanilla no tiene categorias asignadas'];
             }
-        }else{
-            $response = ['error' => 'El cajero no tiene ventanillas asignadas activas'];
-        }
+
         return response()->json($response);
     }
 }

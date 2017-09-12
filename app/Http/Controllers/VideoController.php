@@ -79,6 +79,7 @@ class VideoController extends Controller
         return response()->download(storage_path('app/' . $video->url));
     }
     public function videoIds(){
-        return response()->json(Video::select('id')->orderByDesc('id')->get());
+        return response()->json(Video::select('id')->orderByDesc('id')
+                                ->where('habilitado', true)->get());
     }
 }

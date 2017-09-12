@@ -45,6 +45,7 @@ Route::group(['middleware'=>['jwt-auth']], function (){
     Route::resource('detalles', 'DetalleController', ['except' => ['create', 'edit']]);
     Route::resource('recepcion_tramites', 'RecepcionTramiteController', ['except' => ['create', 'edit']]);
     Route::resource('inscritos', 'InscritoController', ['except' => ['create', 'edit']]);
+    Route::resource('solicitud-autorizaciones', 'SolicitudAutorizacionController', ['except' => ['create', 'edit']]);
 
     Route::get('cajeros-id', 'CajeroController@cajerosId', ['except' => ['create', 'edit']]);
     Route::get('administradores-user', 'AdministradorController@administradoresUser');
@@ -57,11 +58,12 @@ Route::group(['middleware'=>['jwt-auth']], function (){
     Route::get('get-info-video/{id}', 'VideoController@getInfoVideo');
     Route::get('download/{id}', 'VideoController@download');
 
-    Route::get('llamar-ficha', 'FichaController@llamarFicha');
+    Route::get('llamar-ficha/{ventanilla_id}', 'FichaController@llamarFicha');
     Route::post('solicitante-buscar', 'SolicitanteController@buscar');
     Route::post('inscrito-buscar', 'InscritoController@buscar');
 
     Route::get('get-categoria-tramites/{tipo_tramite_id}', 'TipoTramiteController@getCategoriaTramites');
+    Route::get('get-asignacion-ventanillas', 'CajeroController@getAsignacionVentanillas');
 });
 Route::get('file/{id}', 'VideoController@file');
 Route::post('guardar', 'ExampleController@store');

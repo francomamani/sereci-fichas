@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Cajero;
 use App\User;
+use JWTAuth;
 
 class CajeroController extends Controller
 {
@@ -29,6 +30,15 @@ class CajeroController extends Controller
     }
     public function cajerosUser(){
         return response()->json(User::has('cajero')->orderBy('nombres', 'asc')->get());
+    }
+    public function getAsignacionVentanillas(){
+        $user = JWTAuth::toUser();
+        $asignacion_ventanillas = User::find($user->id)->cajero()->first()
+                                      ->asignacionVentanillas()
+                                      ->with('ventanilla')
+                                      ->where('activo', true)
+                                      ->get();
+        return response()->json($asignacion_ventanillas,200);
     }
 
 }

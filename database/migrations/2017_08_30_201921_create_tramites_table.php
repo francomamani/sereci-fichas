@@ -35,7 +35,7 @@ class CreateTramitesTable extends Migration
                 ->references('id')
                 ->on('solicitud_autorizaciones')
                 ->onDelete('cascade');
-            $table->string('glosa');
+            $table->string('glosa')->default('');
             $table->date('fecha_elaboracion')->default(date('Y-m-d'));
             $table->date('fecha_aceptacion')->default(date('Y-m-d'));
             $table->boolean('con_prueba')->default(false);
