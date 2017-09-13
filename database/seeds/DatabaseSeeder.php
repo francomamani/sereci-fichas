@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'apellidos'=> 'Mamani Pozo',
             'carnet'=> '7275047',
             'celular'=> '76137653',
+            'tipo'=> 'administrador',
             'activo'=> true,
         ]);
         Administrador::create(['user_id'=>$user->id]);

@@ -14,9 +14,11 @@ use Illuminate\Http\Request;
 */
 
 Route::post('autenticar', 'UserController@autenticar');
+Route::resource('usuarios', 'UserController', ['except'=>['create','edit']]);
+Route::resource('cajeros', 'CajeroController', ['except' => ['create', 'edit']]);
+
 Route::group(['middleware'=>['jwt-auth']], function (){
     Route::get('usuario', 'UserController@usuario');
-    Route::resource('usuarios', 'UserController', ['except'=>['create','edit']]);
     Route::put('usuarios-activar/{id}', 'UserController@activar');
     Route::put('usuarios-desactivar/{id}', 'UserController@desactivar');
     Route::resource('noticias', 'NoticiaController', ['except'=>['create','edit']]);
@@ -26,7 +28,6 @@ Route::group(['middleware'=>['jwt-auth']], function (){
     Route::resource('categorias', 'CategoriaController', ['except' => ['create', 'edit']]);
     Route::resource('fichas', 'FichaController', ['except' => ['create', 'edit']]);
     Route::resource('tipo-tramites', 'TipoTramiteController', ['except' => ['create', 'edit']]);
-    Route::resource('cajeros', 'CajeroController', ['except' => ['create', 'edit']]);
     Route::resource('administradores', 'AdministradorController', ['except' => ['create', 'edit']]);
     Route::resource('comunicadores', 'ComunicadorController', ['except' => ['create', 'edit']]);
     Route::resource('asignacion-categorias', 'AsignacionCategoriaController', ['except' => ['create', 'edit']]);

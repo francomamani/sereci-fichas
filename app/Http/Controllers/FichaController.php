@@ -181,13 +181,30 @@ class FichaController extends Controller
                     $total_fichas = $asignacion_categoria->categoria()->first()->fichas()->count();
                     if ($total_fichas > 0){
                         $this->updateEstadoFicha($asignacion_categoria);
-                        $records = $asignacion_categoria->categoria()->first()
-                                                       ->fichas()
-                                                       ->with('categoria')
-                                                       ->whereDate('created_at', date('Y-m-d'))
-                                                       ->where('estado_ficha', '!=', 'atendido')
-                                                       ->get()
-                                                       ->toArray();
+                        $ventanilla_count = $asignacion_categoria->categoria()->first()
+                            ->fichas()
+                            ->with('categoria')
+                            ->whereDate('created_at', date('Y-m-d'))
+                            ->where('estado_ficha', '!=', 'ventanilla')
+                            ->count();
+                        if($ventanilla_count > 0){
+                            $records = $asignacion_categoria->categoria()->first()
+                                ->fichas()
+                                ->with('categoria')
+                                ->whereDate('created_at', date('Y-m-d'))
+                                ->where('estado_ficha', '!=', 'ventanilla')
+                                ->get()
+                                ->toArray();
+                        }else{
+                            $records = $asignacion_categoria->categoria()->first()
+                                ->fichas()
+                                ->with('categoria')
+                                ->whereDate('created_at', date('Y-m-d'))
+                                ->where('estado_ficha', '!=', 'atendido')
+                                ->get()
+                                ->toArray();
+                        }
+
                         $response = array_merge($response, $records);
                     }
                 }

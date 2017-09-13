@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Namshi\JOSE\JWT;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
 use App\Administrador;
@@ -26,6 +27,7 @@ class UserController extends Controller
             'apellidos'=>request()->input('apellidos'),
             'carnet'=>request()->input('carnet'),
             'celular'=>request()->input('celular'),
+            'tipo'=> request()->input('tipo'),
             'activo'=>true
         ];
         $user = User::create($data);
@@ -66,6 +68,7 @@ class UserController extends Controller
     }
     public function autenticar(Request $request){
         $credentials = $request->only('cuenta', 'password');
+        $token = null;
         try {
             // attempt to verify the credentials and create a token for the user
             if (! $token = JWTAuth::attempt($credentials)) {
@@ -75,8 +78,8 @@ class UserController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
-
-        return response()->json(compact('token'));
+        $usuario = JWTAuth::toUser($token);
+        return response()->json(compact('token', 'usuario'));
     }
     public function usuario(){
         $user = JWTAuth::toUser();
@@ -84,6 +87,22 @@ class UserController extends Controller
     }
     public function refreshToken(){
         $token = JWTAuth::parseToken();
-        return response()->json(compact($token));
+        return response()->json(compact('token'));
     }
+/*    public function getRol(){
+        $response = null;
+        $user = JWTAuth::toUser();
+        $cajeros = Cajero::where('user_id', $user->id)->count();
+        if ($cajeros > 0){
+            $response = Cajero::where('user_id', $user->id)->first();
+        }else{
+            $administradores = Administrador::where('user_id', $user->id)->count();
+            if ($administradores > 0){
+                $response = Administrador::where('user_id', $user->id)->first();
+            }else{
+                $response = Comunicador::where('user_id', $user->id)->first();
+            }
+        }
+        return response()->json($response);
+    }*/
 }
