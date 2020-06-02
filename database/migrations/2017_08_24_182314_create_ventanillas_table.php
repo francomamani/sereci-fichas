@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateVentanillasTable extends Migration
 {
@@ -15,7 +15,7 @@ class CreateVentanillasTable extends Migration
     {
         Schema::create('ventanillas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('numero')->unsigned();
+            $table->string('numero', 190);
             $table->softDeletes();
             $table->timestamps();
         });
